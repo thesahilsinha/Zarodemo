@@ -1,0 +1,1387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Premium artisan cake shop in Mumbai offering custom cakes, designer desserts, and gourmet pastries. Order luxury cakes for weddings, birthdays, and special occasions.">
+    <meta name="keywords" content="premium cakes Mumbai, custom cakes, designer cakes, luxury bakery Mumbai, wedding cakes, birthday cakes">
+    <meta name="author" content="Zaro The Bakehouse">
+    <title>Zaro The Bakehouse - Premium Cake Shop in Mumbai</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #FF8C42;
+            --secondary: #FF6B35;
+            --accent: #FFA75E;
+            --bg-light: #FFFFFF;
+            --text-light: #1a1a1a;
+            --bg-dark: #0f0f0f;
+            --text-dark: #f5f5f5;
+            --card-light: #FFF8F3;
+            --card-dark: #1a1a1a;
+        }
+
+        /* Loading Animation */
+        .loader-wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            animation: fadeOut 0.5s ease-out 2.5s forwards;
+        }
+
+        @keyframes fadeOut {
+            to {
+                opacity: 0;
+                visibility: hidden;
+            }
+        }
+
+        .loader-logo {
+            font-size: 48px;
+            font-weight: bold;
+            color: white;
+            letter-spacing: 4px;
+            margin-bottom: 30px;
+            animation: logoFloat 1.5s ease-in-out infinite;
+            font-family: 'Georgia', serif;
+        }
+
+        @keyframes logoFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .loader {
+            width: 80px;
+            height: 80px;
+            position: relative;
+        }
+
+        .loader-cake {
+            width: 100%;
+            height: 100%;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            position: relative;
+            animation: rotate 1.5s linear infinite;
+        }
+
+        .loader-cake::before,
+        .loader-cake::after {
+            content: '';
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: white;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .loader-cake::before {
+            animation: pulse1 1.5s ease-in-out infinite;
+        }
+
+        .loader-cake::after {
+            animation: pulse2 1.5s ease-in-out infinite 0.75s;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes pulse1 {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); }
+            50% { transform: translate(-50%, -50%) scale(1.5); opacity: 0.5; }
+        }
+
+        @keyframes pulse2 {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); }
+            50% { transform: translate(-50%, -50%) scale(1.5); opacity: 0.5; }
+        }
+
+        .loader-text {
+            color: white;
+            margin-top: 30px;
+            font-size: 18px;
+            letter-spacing: 3px;
+            font-weight: 300;
+        }
+
+        .loader-dots {
+            display: inline-block;
+            width: 30px;
+        }
+
+        .loader-dots::after {
+            content: '';
+            animation: dots 1.5s steps(4, end) infinite;
+        }
+
+        @keyframes dots {
+            0%, 20% { content: ''; }
+            40% { content: '.'; }
+            60% { content: '..'; }
+            80%, 100% { content: '...'; }
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            line-height: 1.6;
+            transition: background-color 0.3s, color 0.3s;
+            overflow-x: hidden;
+        }
+
+        body.light-mode {
+            background-color: var(--bg-light);
+            color: var(--text-light);
+        }
+
+        body.dark-mode {
+            background-color: var(--bg-dark);
+            color: var(--text-dark);
+        }
+
+        /* Offer Banner */
+        .offer-banner {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            text-align: center;
+            padding: 12px 20px;
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            animation: slideDown 0.5s ease-out;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .offer-banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(-100%); }
+            to { transform: translateY(0); }
+        }
+
+        /* Navbar */
+        nav {
+            background: var(--bg-light);
+            padding: 20px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: background 0.3s;
+        }
+
+        .dark-mode nav {
+            background: var(--bg-dark);
+            box-shadow: 0 2px 10px rgba(255,255,255,0.05);
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: var(--primary);
+            font-family: 'Georgia', serif;
+            letter-spacing: 2px;
+            flex: 1;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 35px;
+            flex: 2;
+            justify-content: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: inherit;
+            font-weight: 500;
+            transition: color 0.3s;
+            font-size: 15px;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-cta {
+            flex: 1;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .nav-cta-btn {
+            padding: 10px 25px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+            font-weight: 600;
+            border-radius: 5px;
+        }
+
+        .nav-cta-btn:hover {
+            background: var(--secondary);
+            transform: translateY(-2px);
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: var(--primary);
+            transition: 0.3s;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 90vh;
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=1600') center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+
+        .hero-content h1 {
+            font-size: 64px;
+            margin-bottom: 20px;
+            font-weight: 300;
+            letter-spacing: 3px;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero-content p {
+            font-size: 22px;
+            margin-bottom: 30px;
+            font-weight: 300;
+            letter-spacing: 1.5px;
+            animation: fadeInUp 1.2s ease-out;
+        }
+
+        .cta-button {
+            padding: 15px 45px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+            letter-spacing: 2px;
+            transition: all 0.3s;
+            animation: fadeInUp 1.4s ease-out;
+            text-transform: uppercase;
+            font-weight: 600;
+            border-radius: 5px;
+        }
+
+        .cta-button:hover {
+            background: var(--secondary);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255,140,66,0.3);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Services Section */
+        .services {
+            padding: 100px 5%;
+            background: var(--card-light);
+        }
+
+        .dark-mode .services {
+            background: var(--card-dark);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 42px;
+            margin-bottom: 20px;
+            color: var(--primary);
+            font-weight: 300;
+            letter-spacing: 2px;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 18px;
+            margin-bottom: 60px;
+            opacity: 0.8;
+            font-style: italic;
+        }
+
+        .service-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .service-card {
+            text-align: center;
+            padding: 40px 30px;
+            background: var(--bg-light);
+            border-radius: 10px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid rgba(255,140,66,0.2);
+        }
+
+        .dark-mode .service-card {
+            background: var(--bg-dark);
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(255,140,66,0.2);
+        }
+
+        .service-icon {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 20px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            color: white;
+            font-weight: bold;
+        }
+
+        .service-card h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            font-weight: 400;
+        }
+
+        /* Why Choose Us */
+        .why-choose {
+            padding: 100px 5%;
+        }
+
+        .why-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .why-card {
+            padding: 30px;
+            background: var(--card-light);
+            border-left: 4px solid var(--primary);
+            transition: transform 0.3s;
+        }
+
+        .dark-mode .why-card {
+            background: var(--card-dark);
+        }
+
+        .why-card:hover {
+            transform: translateX(10px);
+        }
+
+        .why-card h4 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+
+        /* Products Section */
+        .products {
+            padding: 100px 5%;
+            background: var(--card-light);
+        }
+
+        .dark-mode .products {
+            background: var(--card-dark);
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .product-card {
+            background: var(--bg-light);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .dark-mode .product-card {
+            background: var(--bg-dark);
+        }
+
+        .product-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+        }
+
+        .product-info {
+            padding: 25px;
+        }
+
+        .product-info h3 {
+            font-size: 22px;
+            margin-bottom: 10px;
+        }
+
+        .product-price {
+            color: var(--primary);
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        /* Special Offer Section */
+        .special-offer {
+            padding: 80px 5%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            text-align: center;
+        }
+
+        .offer-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .offer-badge {
+            display: inline-block;
+            background: white;
+            color: var(--primary);
+            padding: 10px 30px;
+            border-radius: 50px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            letter-spacing: 2px;
+            animation: pulse 2s infinite;
+            font-weight: bold;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        /* FAQs */
+        .faqs {
+            padding: 100px 5%;
+        }
+
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            margin-bottom: 20px;
+            border: 1px solid rgba(255,140,66,0.3);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            padding: 20px;
+            background: var(--card-light);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        .dark-mode .faq-question {
+            background: var(--card-dark);
+        }
+
+        .faq-question:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, padding 0.3s;
+            padding: 0 20px;
+            background: var(--bg-light);
+        }
+
+        .dark-mode .faq-answer {
+            background: var(--bg-dark);
+        }
+
+        .faq-answer.active {
+            max-height: 300px;
+            padding: 20px;
+        }
+
+        .faq-toggle {
+            font-size: 24px;
+            transition: transform 0.3s;
+        }
+
+        .faq-toggle.active {
+            transform: rotate(45deg);
+        }
+
+        /* Testimonials */
+        .testimonials {
+            padding: 100px 5%;
+            background: var(--card-light);
+        }
+
+        .dark-mode .testimonials {
+            background: var(--card-dark);
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .testimonial-card {
+            padding: 40px;
+            background: var(--bg-light);
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .dark-mode .testimonial-card {
+            background: var(--bg-dark);
+        }
+
+        .quote-icon {
+            font-size: 48px;
+            color: var(--primary);
+            opacity: 0.3;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .author-image {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .author-name {
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        /* Contact Form */
+        .contact {
+            padding: 100px 5%;
+        }
+
+        .contact-container {
+            max-width: 800px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid rgba(255,140,66,0.3);
+            border-radius: 5px;
+            background: var(--card-light);
+            color: inherit;
+            font-family: inherit;
+            transition: border-color 0.3s;
+        }
+
+        .dark-mode .form-group input,
+        .dark-mode .form-group textarea {
+            background: var(--card-dark);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .submit-btn {
+            padding: 15px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            transition: background 0.3s;
+        }
+
+        .submit-btn:hover {
+            background: var(--secondary);
+        }
+
+        .contact-info h3 {
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .contact-details {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .contact-icon {
+            width: 45px;
+            height: 45px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--text-light);
+            color: white;
+            padding: 60px 5% 30px;
+        }
+
+        .dark-mode footer {
+            background: #000;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto 40px;
+        }
+
+        .footer-section h3 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-size: 20px;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-section a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: var(--primary);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(255,140,66,0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s;
+            cursor: pointer;
+            font-weight: bold;
+            color: var(--primary);
+            font-size: 16px;
+        }
+
+        .social-icon:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .copyright {
+            text-align: center;
+            padding: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 14px;
+            opacity: 0.8;
+        }
+
+        /* Floating Buttons */
+        .theme-toggle {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 24px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            transition: transform 0.3s;
+            z-index: 1000;
+            font-weight: bold;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        .whatsapp-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: #25D366;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 28px;
+            font-weight: bold;
+            box-shadow: 0 5px 20px rgba(37,211,102,0.4);
+            transition: transform 0.3s;
+            z-index: 1000;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .whatsapp-btn:hover {
+            transform: scale(1.1);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: flex;
+            }
+
+            .nav-links {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                flex-direction: column;
+                background: var(--bg-light);
+                padding: 20px;
+                gap: 15px;
+                transform: translateY(-100%);
+                opacity: 0;
+                pointer-events: none;
+                transition: all 0.3s;
+            }
+
+            .dark-mode .nav-links {
+                background: var(--bg-dark);
+            }
+
+            .nav-links.active {
+                transform: translateY(0);
+                opacity: 1;
+                pointer-events: all;
+            }
+
+            .nav-cta {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--bg-light);
+                padding: 0 20px 20px;
+                transform: translateY(-100%);
+                opacity: 0;
+                pointer-events: none;
+                transition: all 0.3s;
+            }
+
+            .dark-mode .nav-cta {
+                background: var(--bg-dark);
+            }
+
+            .nav-cta.active {
+                transform: translateY(0);
+                opacity: 1;
+                pointer-events: all;
+            }
+
+            .nav-cta-btn {
+                width: 100%;
+            }
+
+            .hero-content h1 {
+                font-size: 40px;
+            }
+
+            .hero-content p {
+                font-size: 18px;
+            }
+
+            .section-title {
+                font-size: 32px;
+            }
+
+            .theme-toggle,
+            .whatsapp-btn {
+                width: 50px;
+                height: 50px;
+                font-size: 20px;
+            }
+
+            .service-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+
+            .product-grid,
+            .testimonial-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .service-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body class="light-mode">
+    <!-- Loading Animation -->
+    <div class="loader-wrapper">
+        <div class="loader-logo">ZARO</div>
+        <div class="loader">
+            <div class="loader-cake"></div>
+        </div>
+        <div class="loader-text">Baking Magic<span class="loader-dots"></span></div>
+    </div>
+
+    <!-- Offer Banner -->
+    <div class="offer-banner">
+        ✨ FESTIVE SPECIAL - 25% OFF on All Custom Cakes | Free Home Delivery Above ₹2000 ✨
+    </div>
+
+    <!-- Navbar -->
+    <nav>
+        <div class="logo">ZARO</div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#products">Cakes</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <div class="nav-cta">
+            <button class="nav-cta-btn" onclick="document.getElementById('contact').scrollIntoView({behavior: 'smooth'})">ORDER NOW</button>
+        </div>
+        <div class="menu-toggle" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Artisan Cakes & Desserts</h1>
+            <p>Mumbai's finest premium patisserie since 2012</p>
+            <button class="cta-button" onclick="document.getElementById('contact').scrollIntoView({behavior: 'smooth'})">ORDER CUSTOM CAKE</button>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <h2 class="section-title">Our Services</h2>
+        <p class="section-subtitle">Crafting sweet memories for every celebration</p>
+        <div class="service-grid">
+            <div class="service-card">
+                <div class="service-icon">C</div>
+                <h3>Custom Chesse Cakes</h3>
+                <p>Bespoke designer cakes crafted to perfection for your special moments.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">W</div>
+                <h3>Wedding Cakes</h3>
+                <p>Grand multi-tier wedding cakes that become the centerpiece of your celebration.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">D</div>
+                <h3>Designer Desserts</h3>
+                <p>Exquisite French pastries, macarons, and gourmet dessert tables.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">T</div>
+                <h3>Theme Cakes</h3>
+                <p>Creative themed designs for birthdays, anniversaries, and corporate events.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">H</div>
+                <h3>Home Delivery</h3>
+                <p>Swift and safe delivery of fresh cakes across Mumbai with temperature control.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">B</div>
+                <h3>Bulk Orders</h3>
+                <p>Corporate gifting and party orders with special packaging and pricing.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us -->
+    <section class="why-choose" id="about">
+        <h2 class="section-title">Why Choose Us?</h2>
+        <p class="section-subtitle">Mumbai's most trusted premium cake destination</p>
+        <div class="why-grid">
+            <div class="why-card">
+                <h4>Premium Ingredients</h4>
+                <p>Only the finest Belgian chocolate, French butter, and imported ingredients in every creation.</p>
+            </div>
+            <div class="why-card">
+                <h4>Master Pastry Chefs</h4>
+                <p>Award-winning team with international training and years of expertise.</p>
+            </div>
+            <div class="why-card">
+                <h4>100% Fresh</h4>
+                <p>Every cake is baked fresh to order, never frozen, delivered at peak perfection.</p>
+            </div>
+            <div class="why-card">
+                <h4>Custom Designs</h4>
+                <p>Unlimited customization options to bring your dream cake vision to life.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="products" id="products">
+        <h2 class="section-title">Signature Collection</h2>
+        <p class="section-subtitle">Our most loved creations</p>
+        <div class="product-grid">
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1588195538326-c5b1e5b80e4d?w=600" alt="Chocolate Truffle Cake" class="product-image">
+                <div class="product-info">
+                    <h3>Belgian Chocolate Truffle</h3>
+                    <p>Rich dark chocolate layers with velvety truffle ganache and chocolate shavings.</p>
+                    <div class="product-price">₹1,200 onwards</div>
+                </div>
+            </div>
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=600" alt="Red Velvet Cake" class="product-image">
+                <div class="product-info">
+                    <h3>Classic Red Velvet</h3>
+                    <p>Signature red velvet with cream cheese frosting and white chocolate curls.</p>
+                    <div class="product-price">₹1,000 onwards</div>
+                </div>
+            </div>
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1535254973040-607b474cb50d?w=600" alt="Fresh Fruit Cake" class="product-image">
+                <div class="product-info">
+                    <h3>Fresh Fruit Fantasy</h3>
+                    <p>Light vanilla sponge with fresh seasonal fruits and whipped cream.</p>
+                    <div class="product-price">₹900 onwards</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Special Offer Section -->
+    <section class="special-offer">
+        <div class="offer-content">
+            <div class="offer-badge">LIMITED TIME OFFER</div>
+            <h2 class="section-title" style="color: white;">Birthday Month Special</h2>
+            <p style="font-size: 20px; margin: 20px 0;">Get 30% OFF on your birthday cake + Free personalized photo print + Complimentary candles & knife</p>
+            <button class="cta-button">CLAIM YOUR OFFER</button>
+        </div>
+    </section>
+
+    <!-- FAQs -->
+    <section class="faqs">
+        <h2 class="section-title">Frequently Asked Questions</h2>
+        <p class="section-subtitle">Everything you need to know about ordering from us</p>
+        <div class="faq-container">
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>How much advance notice do you need for custom cake orders?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    For custom designer cakes, we recommend at least 3-5 days advance notice. Simple cakes can be done in 24 hours. Wedding cakes require 2-3 weeks notice for elaborate designs.
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>Do you deliver across all of Mumbai?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    Yes! We deliver across Mumbai and Navi Mumbai. Free delivery for orders above ₹2000. Standard delivery charges apply for smaller orders. We use temperature-controlled vehicles to ensure freshness.
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>Can you accommodate dietary restrictions?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    Absolutely! We offer eggless, sugar-free, gluten-free, and vegan options for all our cakes. Please mention your requirements when placing the order.
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>What is your cancellation and refund policy?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    Orders can be cancelled up to 48 hours before delivery for a full refund. Within 48 hours, a 50% cancellation charge applies as ingredients are already procured and work begun.
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>How do I send a reference image for my custom cake design?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    You can WhatsApp your reference images, describe your vision in the contact form, or visit our store for a consultation. Our designers will create a sketch for your approval before baking.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials">
+        <h2 class="section-title">What Our Clients Say</h2>
+        <p class="section-subtitle">Sweet memories shared by our customers</p>
+        <div class="testimonial-grid">
+            <div class="testimonial-card">
+                <div class="quote-icon">"</div>
+                <p class="testimonial-text">The wedding cake was absolutely stunning! Not only did it look like a work of art, but it tasted heavenly. All our guests couldn't stop raving about it. Thank you for making our day extra special!</p>
+                <div class="testimonial-author">
+                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100" alt="Rhea Mehta" class="author-image">
+                    <div>
+                        <div class="author-name">Rhea Mehta</div>
+                        <div>Andheri</div>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <div class="quote-icon">"</div>
+                <p class="testimonial-text">I've ordered from Sweet Elegance for every family celebration for the past 3 years. The quality is consistently excellent, and their chocolate truffle is to die for! The best cake shop in Mumbai, hands down.</p>
+                <div class="testimonial-author">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100" alt="Arjun Kapoor" class="author-image">
+                    <div>
+                        <div class="author-name">Arjun Kapoor</div>
+                        <div>Bandra</div>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <div class="quote-icon">"</div>
+                <p class="testimonial-text">Ordered a custom unicorn cake for my daughter's 5th birthday. The attention to detail was incredible! She was so thrilled, and the cake tasted amazing. Thank you for creating such beautiful memories!</p>
+                <div class="testimonial-author">
+                    <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100" alt="Priya Singh" class="author-image">
+                    <div>
+                        <div class="author-name">Priya Singh</div>
+                        <div>Powai</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <h2 class="section-title">Place Your Order</h2>
+        <p class="section-subtitle">Let's create something delicious together</p>
+        <div class="contact-container">
+            <form class="contact-form" onsubmit="handleSubmit(event)">
+                <div class="form-group">
+                    <input type="text" placeholder="Your Name" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" placeholder="Your Email" required>
+                </div>
+                <div class="form-group">
+                    <input type="tel" placeholder="Phone Number" required>
+                </div>
+                <div class="form-group">
+                    <textarea placeholder="Cake Details (occasion, design, flavour, size, date needed)" required></textarea>
+                </div>
+                <button type="submit" class="submit-btn">PLACE ORDER</button>
+            </form>
+            <div class="contact-info">
+                <h3>Visit Our Bakery</h3>
+                <div class="contact-details">
+                    <div class="contact-item">
+                        <span class="contact-icon">L</span>
+                        <div>
+                            <strong>Location</strong><br>
+                            456 Hill Road, Bandra West<br>
+                            Mumbai, Maharashtra 400050
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-icon">P</span>
+                        <div>
+                            <strong>Phone</strong><br>
+                            +91 98765 12345
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-icon">@</span>
+                        <div>
+                            <strong>Email</strong><br>
+                            orders@zarothebakehouse.in
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-icon">H</span>
+                        <div>
+                            <strong>Hours</strong><br>
+                            Tue-Sun: 9:00 AM - 9:00 PM<br>
+                            Monday: Closed
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About Zaro</h3>
+                <p>Mumbai's premier artisan patisserie specializing in custom designer cakes and gourmet desserts. Baking happiness since 2012.</p>
+                <div class="social-links">
+                    <div class="social-icon">f</div>
+                    <div class="social-icon">i</div>
+                    <div class="social-icon">t</div>
+                    <div class="social-icon">p</div>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#services">Our Services</a></li>
+                    <li><a href="#products">Cake Menu</a></li>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#contact">Place Order</a></li>
+                    <li><a href="#">Gallery</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Popular Cakes</h3>
+                <ul>
+                    <li><a href="#">Chocolate Truffle</a></li>
+                    <li><a href="#">Red Velvet</a></li>
+                    <li><a href="#">Black Forest</a></li>
+                    <li><a href="#">Fresh Fruit Cakes</a></li>
+                    <li><a href="#">Wedding Cakes</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Customer Care</h3>
+                <ul>
+                    <li><a href="#">Delivery Info</a></li>
+                    <li><a href="#">Pricing Guide</a></li>
+                    <li><a href="#">FAQs</a></li>
+                    <li><a href="#">Cancellation Policy</a></li>
+                    <li><a href="#">Terms & Conditions</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2026 Zaro The Bakehouse Mumbai. All rights reserved. | Crafted with love and premium ingredients.</p>
+        </div>
+    </footer>
+
+    <!-- Floating Buttons -->
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">◐</button>
+    <a href="https://wa.me/919876512345" class="whatsapp-btn" target="_blank" aria-label="WhatsApp">W</a>
+
+    <script>
+        // Hide loader after page loads
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                document.querySelector('.loader-wrapper').style.display = 'none';
+            }, 2500);
+        });
+
+        // Theme Toggle
+        function toggleTheme() {
+            const body = document.body;
+            body.classList.toggle('light-mode');
+            body.classList.toggle('dark-mode');
+        }
+
+        // Mobile Menu Toggle
+        function toggleMenu() {
+            const navLinks = document.querySelector('.nav-links');
+            const navCta = document.querySelector('.nav-cta');
+            navLinks.classList.toggle('active');
+            navCta.classList.toggle('active');
+        }
+
+        // FAQ Toggle
+        function toggleFaq(element) {
+            const answer = element.nextElementSibling;
+            const toggle = element.querySelector('.faq-toggle');
+            
+            answer.classList.toggle('active');
+            toggle.classList.toggle('active');
+        }
+
+        // Form Submit
+        function handleSubmit(e) {
+            e.preventDefault();
+            alert('Thank you for your order! We will contact you shortly to confirm the details and finalize your custom cake design.');
+            e.target.reset();
+        }
+
+        // Smooth scroll for CTA button
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
